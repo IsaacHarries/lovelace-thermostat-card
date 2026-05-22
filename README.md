@@ -1,6 +1,6 @@
 # Thermostat Card HK
 
-A fork of [`fineemb/lovelace-thermostat-card`](https://github.com/fineemb/lovelace-thermostat-card) with an Apple HomeKit-style range UX for dual-setpoint climate entities.
+A fork of [`fineemb/lovelace-thermostat-card`](https://github.com/fineemb/lovelace-thermostat-card) with a draggable dual-handle range UX for dual-setpoint climate entities.
 
 Custom element: `thermostat-card-hk`
 

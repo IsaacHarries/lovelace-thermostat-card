@@ -604,7 +604,7 @@ export default class ThermostatUI {
     }
   }
 
-  // --- Draggable handles on the arc (HomeKit-style) ---
+  // --- Draggable dual-handle range on the arc ---
 
   // Recompute the active tick range from current state and redraw the dial ticks.
   // Used during handle drag and tap-bump so the visual range tracks the live values.
