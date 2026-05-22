@@ -1,6 +1,6 @@
-import {cssData} from './styles.js?v=2.0.0-hk';
-import ThermostatUI from './thermostat_card.lib.js?v=2.0.0-hk';
-console.info("%c Thermostat Card HK \n%c  Version  2.0.0-hk (drag handles) ", "color: orange; font-weight: bold; background: black", "color: white; font-weight: bold; background: dimgray");
+import {cssData} from './styles.js?v=2.0.0';
+import ThermostatUI from './thermostat_card.lib.js?v=2.0.0';
+console.info("%c Thermostat Card \n%c  Version  2.0.0 (drag handles) ", "color: orange; font-weight: bold; background: black", "color: white; font-weight: bold; background: dimgray");
 class ThermostatCard extends HTMLElement {
   constructor() {
     super();
@@ -147,7 +147,7 @@ class ThermostatCard extends HTMLElement {
     this._config = cardConfig;
   }
 }
-customElements.define('thermostat-card-hk', ThermostatCard);
+customElements.define('thermostat-card', ThermostatCard);
 
 function deepClone(value) {
   if (!(!!value && typeof value == 'object')) {

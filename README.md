@@ -1,8 +1,11 @@
-# Thermostat Card HK
+# Thermostat Card
 
 A fork of [`fineemb/lovelace-thermostat-card`](https://github.com/fineemb/lovelace-thermostat-card) with a draggable dual-handle range UX for dual-setpoint climate entities.
 
-Custom element: `thermostat-card-hk`
+Custom element: `thermostat-card`
+
+> [!IMPORTANT]
+> This fork registers the same custom element name (`thermostat-card`) as the upstream card. If you have the upstream card installed via HACS, uninstall it before installing this one — they can't coexist.
 
 ## What's different from the upstream card
 
@@ -29,16 +32,16 @@ Custom element: `thermostat-card-hk`
 
 ### Manual
 
-1. Copy the three files from `dist/` to `/config/www/thermostat-card-hk/`.
+1. Copy the three files from `dist/` to `/config/www/thermostat-card/`.
 2. Settings → Dashboards → Resources → Add Resource:
-   - URL: `/local/thermostat-card-hk/main.js`
+   - URL: `/local/thermostat-card/main.js`
    - Type: JavaScript Module
 3. Restart Home Assistant. Hard-refresh the dashboard.
 
 ## Use
 
 ```yaml
-type: custom:thermostat-card-hk
+type: custom:thermostat-card
 entity: climate.your_thermostat
 no_card: true
 highlight_tap: true
