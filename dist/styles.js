@@ -241,6 +241,11 @@ export function cssData(user) {
   .dial.action--cooling .dial__shape {
     fill: #185a80;
   }
+  /* When the unit is actively cooling, override mode_color (which drives the
+     active tick range and accent details) to a cool blue, regardless of mode. */
+  .dial.action--cooling {
+    --mode_color: #3ca4fa;
+  }
   .dial__ticks path {
     fill: var(--thermostat-path-color);
   }
