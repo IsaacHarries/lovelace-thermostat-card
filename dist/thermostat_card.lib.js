@@ -499,10 +499,18 @@ export default class ThermostatUI {
       ic_dot = 'dot_h'
     }
 
+    // In auto / heat_cool mode the icon color should track what the unit is
+    // actively doing, not just the mode setting — mirrors the tick coloring.
+    let effectiveState = state;
+    if ((state === 'auto' || state === 'heat_cool') && this.hvac_action) {
+      if (this.hvac_action === 'cooling') effectiveState = 'cool';
+      else if (this.hvac_action === 'heating') effectiveState = 'heat';
+    }
+
     this._main_icon.innerHTML = `
       <div class="climate_info">
         <div class="mode_color"><span class="${ic_dot}"></span></div>
-        <div class="modes"><ha-icon class="${state}" icon="mdi:${ic_name}"></ha-icon></div>
+        <div class="modes"><ha-icon class="${effectiveState}" icon="mdi:${ic_name}"></ha-icon></div>
       </div>
     `;
     return this._main_icon;
