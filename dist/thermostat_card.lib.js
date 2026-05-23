@@ -399,10 +399,19 @@ export default class ThermostatUI {
       [config.radius - 2, config.ticks_inner_radius + 35]
     ];
 
+    // In auto / heat_cool mode the unit can be either heating or cooling at any
+    // given moment. Tag the active ticks with the effective state so the mode
+    // color (which is keyed off the state class on the tick path itself)
+    // reflects what's actually happening, not just the mode setting.
+    let effectiveState = hvac_state;
+    if ((hvac_state === 'auto' || hvac_state === 'heat_cool') && this.hvac_action) {
+      if (this.hvac_action === 'cooling') effectiveState = 'cool';
+      else if (this.hvac_action === 'heating') effectiveState = 'heat';
+    }
     this._ticks.forEach((tick, index) => {
       const isAmbient = (index === ambient_index);
       let isLarge = false;
-      let isActive = (index >= from && index <= to) ? 'active ' + hvac_state : '';
+      let isActive = (index >= from && index <= to) ? 'active ' + effectiveState : '';
       large_ticks.forEach(i => isLarge = isLarge || (index == i));
       if (isLarge) isActive += ' large';
       if (isAmbient) isActive += ' ambient';
