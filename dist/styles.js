@@ -237,15 +237,16 @@ export function cssData(user) {
     fill: var(--idle_color);
   }
   /* Dial background reflects the effective state — mode-driven in heat/cool
-     (so a heat-mode dial stays brown even when idle between cycles), and
-     action-driven in auto/heat_cool. Off / fan-only / dry stay dark. */
+     (so a heat-mode dial stays tinted even when idle between cycles), and
+     action-driven in auto/heat_cool. Off / fan-only / dry stay dark.
+     Colors reuse the card's existing --heat_colorc / --cool_colorc vars. */
   .dial.action--heating .dial__shape,
   .dial.mode--heat .dial__shape {
-    fill: #804f18;
+    fill: var(--heat_colorc);
   }
   .dial.action--cooling .dial__shape,
   .dial.mode--cool .dial__shape {
-    fill: #185a80;
+    fill: var(--cool_colorc);
   }
   /* All ticks render in grey — heat/cool state is communicated by the dial
      background color, not by the ticks. */
