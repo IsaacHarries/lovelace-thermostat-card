@@ -234,16 +234,8 @@ export function cssData(user) {
   .dial--state--idle .dial__shape {
     fill: var(--idle_color);
   }
-  /* hvac_action overrides — color the dial by what the unit is actively doing.
-     The active tick range color is handled at the JS level by tagging active
-     ticks with the effective heat/cool state when in auto/heat_cool mode, so
-     --mode_color naturally resolves to the right hue via the existing rules. */
-  .dial.action--heating .dial__shape {
-    fill: #804f18;
-  }
-  .dial.action--cooling .dial__shape {
-    fill: #185a80;
-  }
+  /* Dial background stays the dark default regardless of hvac state/action.
+     The active state is communicated via tick color and the mode icon. */
   .dial__ticks path {
     fill: var(--thermostat-path-color);
   }

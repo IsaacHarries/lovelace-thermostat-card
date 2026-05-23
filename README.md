@@ -12,7 +12,7 @@ Custom element: `thermostat-card`
 - **Two draggable handles on the arc** when the entity is in a dual-setpoint mode (`heat_cool`, `auto`, or `off` with low/high). Drag each handle independently along the ring to adjust the low and high setpoints.
 - **Tap-to-bump-both** on the dial. Tap the right side of the arc to bump both setpoints up by one step; tap the left side to drop both down. The spread between the handles is preserved.
 - **`auto` is treated as a dual-setpoint state.** Integrations like Sensi report range mode as `HVACMode.AUTO` rather than `HVACMode.HEAT_COOL`. The card now shows dual handles for either.
-- **Dial color tracks `hvac_action`, not just `hvac_state`.** When the unit is actively heating the dial fills with a warm brown (`#804f18`); when actively cooling it fills with a deep teal (`#185a80`). Idle/off falls back to the original dark default.
+- **Active tick color follows `hvac_action`, not just `hvac_state`.** In `auto` / `heat_cool` mode the active tick range picks up the `cool` or `heat` accent depending on what the unit is currently doing, instead of statically inheriting the mode's color.
 - **Mode icon swapped to `mdi:thermostat-auto`** for auto/heat_cool modes, matching the Google Nest aesthetic.
 - **The current temperature tick is longer and thicker** than the setpoint tick marks so the ambient reading is unambiguous at a glance.
 - **The range setpoint markers and ambient marker render in a lighter grey** than the dim base ticks for visual separation.
