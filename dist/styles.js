@@ -103,7 +103,9 @@ export function cssData(user) {
     transform: translate(-50%, -50%);
   }
   .modes ha-icon {
-    color: var(--mode_color);
+    /* Mode icon matches the ambient tick color so heat/cool isn't
+       communicated twice (dial background already shows it). */
+    color: rgba(255, 255, 255, 0.7);
     --mdc-icon-size: 100%;
   }
   .dialog{
@@ -234,19 +236,25 @@ export function cssData(user) {
   .dial--state--idle .dial__shape {
     fill: var(--idle_color);
   }
-  /* Dial background stays the dark default regardless of hvac state/action.
-     The active state is communicated via tick color and the mode icon. */
+  /* Dial background reflects what the unit is actively doing.
+     Idle / off / fan-only stays the default dark fill. */
+  .dial.action--heating .dial__shape {
+    fill: #804f18;
+  }
+  .dial.action--cooling .dial__shape {
+    fill: #185a80;
+  }
+  /* All ticks render in grey — heat/cool state is communicated by the dial
+     background color, not by the ticks. */
   .dial__ticks path {
     fill: var(--thermostat-path-color);
   }
   .dial__ticks path.active {
-    fill: var(--mode_color);
+    fill: rgba(255, 255, 255, 0.5);
   }
-  .dial__ticks path.active.large {
-    fill: var(--mode_color);
-  }
-  /* Range setpoint markers and the ambient marker render in a lighter grey
-     than the dim base ticks so they stand out at a glance. */
+  /* Large markers (low/high setpoints) and the ambient marker are the
+     brightest greys so they stand out at a glance. The .large rule comes
+     after .active so it wins on the markers regardless of active state. */
   .dial__ticks path.large,
   .dial__ticks path.ambient {
     fill: rgba(255, 255, 255, 0.7);
