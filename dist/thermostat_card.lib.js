@@ -96,6 +96,11 @@ export default class ThermostatUI {
     this.hvac_modes = options.hvac_modes;
     this._updateClass('action--heating', this.hvac_action === 'heating');
     this._updateClass('action--cooling', this.hvac_action === 'cooling');
+    // Mode-based classes so heat / cool mode looks heating/cooling even when
+    // the unit is idle between cycles — together with action--* these cover
+    // the "effective state" (mode-driven in heat/cool; action-driven in auto).
+    this._updateClass('mode--heat', this.hvac_state === 'heat');
+    this._updateClass('mode--cool', this.hvac_state === 'cool');
     this.temperature = {
       low: options.target_temperature_low,
       high: options.target_temperature_high,
