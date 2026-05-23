@@ -31,7 +31,7 @@ export function cssData(user) {
   }
   
   .cool {
-    --mode_color: var(--cool_color);
+    --mode_color: var(--cool_colorc);
   }
   
   .heat {
