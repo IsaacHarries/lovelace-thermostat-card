@@ -1,6 +1,6 @@
-import {cssData} from './styles.js?v=2.1.0';
-import ThermostatUI from './thermostat_card.lib.js?v=2.1.0';
-console.info("%c Thermostat Card \n%c  Version  2.1.0 (humidity) ", "color: orange; font-weight: bold; background: black", "color: white; font-weight: bold; background: dimgray");
+import {cssData} from './styles.js?v=2.1.1';
+import ThermostatUI from './thermostat_card.lib.js?v=2.1.1';
+console.info("%c Thermostat Card \n%c  Version  2.1.1 (humidity_entity) ", "color: orange; font-weight: bold; background: black", "color: white; font-weight: bold; background: dimgray");
 class ThermostatCard extends HTMLElement {
   constructor() {
     super();
@@ -21,6 +21,19 @@ class ThermostatCard extends HTMLElement {
       ambient_temperature = hass.states[config.ambient_temperature].state;
     let hvac_state = entity.state;
     
+    // Humidity: prefer the configured humidity_entity (e.g. a separate
+    // sensor.* the integration exposes), else fall back to the climate
+    // entity's current_humidity attribute. Returns null when neither has a
+    // valid numeric reading so the card hides the label.
+    let current_humidity = entity.attributes.current_humidity;
+    if (config.humidity_entity && hass.states[config.humidity_entity]) {
+      const raw = hass.states[config.humidity_entity].state;
+      if (raw !== 'unavailable' && raw !== 'unknown' && raw !== '' && raw != null) {
+        const n = Number(raw);
+        if (!isNaN(n)) current_humidity = n;
+      }
+    }
+
     const new_state = {
       entity: entity,
       min_value: min_value,
@@ -29,7 +42,7 @@ class ThermostatCard extends HTMLElement {
       target_temperature: entity.attributes.temperature,
       target_temperature_low: entity.attributes.target_temp_low,
       target_temperature_high: entity.attributes.target_temp_high,
-      current_humidity: entity.attributes.current_humidity,
+      current_humidity: current_humidity,
       hvac_state: entity.state,
       hvac_action: entity.attributes.hvac_action || 'idle',
       hvac_modes:entity.attributes.hvac_modes,
