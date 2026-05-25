@@ -294,6 +294,18 @@ export function cssData(user) {
     font-weight: bold;
     visibility: visible;
   }
+  /* Humidity reading, positioned between the ambient temperature and
+     the mode icon. Smaller, lighter than ambient so it doesn't compete. */
+  .dial__lbl--humidity {
+    font-size: 38px;
+    font-weight: 500;
+    fill: rgba(255, 255, 255, 0.7);
+  }
+  /* Hide humidity while user is actively adjusting setpoints so the
+     low/high readout has room. */
+  .dial.in_control .dial__lbl--humidity {
+    visibility: hidden;
+  }
   /* Dual-mode chevrons are replaced by draggable arc handles below. */
   .dial.in_control.has_dual .dial__chevron--low,
   .dial.in_control.has_dual .dial__chevron--high {

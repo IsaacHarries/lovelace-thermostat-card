@@ -1,6 +1,6 @@
-import {cssData} from './styles.js?v=2.0.0';
-import ThermostatUI from './thermostat_card.lib.js?v=2.0.0';
-console.info("%c Thermostat Card \n%c  Version  2.0.0 (drag handles) ", "color: orange; font-weight: bold; background: black", "color: white; font-weight: bold; background: dimgray");
+import {cssData} from './styles.js?v=2.1.0';
+import ThermostatUI from './thermostat_card.lib.js?v=2.1.0';
+console.info("%c Thermostat Card \n%c  Version  2.1.0 (humidity) ", "color: orange; font-weight: bold; background: black", "color: white; font-weight: bold; background: dimgray");
 class ThermostatCard extends HTMLElement {
   constructor() {
     super();
@@ -29,6 +29,7 @@ class ThermostatCard extends HTMLElement {
       target_temperature: entity.attributes.temperature,
       target_temperature_low: entity.attributes.target_temp_low,
       target_temperature_high: entity.attributes.target_temp_high,
+      current_humidity: entity.attributes.current_humidity,
       hvac_state: entity.state,
       hvac_action: entity.attributes.hvac_action || 'idle',
       hvac_modes:entity.attributes.hvac_modes,
@@ -43,6 +44,7 @@ class ThermostatCard extends HTMLElement {
         this._saved_state.target_temperature != new_state.target_temperature ||
         this._saved_state.target_temperature_low != new_state.target_temperature_low ||
         this._saved_state.target_temperature_high != new_state.target_temperature_high ||
+        this._saved_state.current_humidity != new_state.current_humidity ||
         this._saved_state.hvac_state != new_state.hvac_state ||
         this._saved_state.hvac_action != new_state.hvac_action ||
         this._saved_state.preset_mode != new_state.preset_mode ||

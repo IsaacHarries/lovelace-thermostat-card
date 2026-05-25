@@ -63,6 +63,7 @@ export default class ThermostatUI {
     root.appendChild(this._buildText(config.radius, 'target', 0));
     root.appendChild(this._buildText(config.radius, 'low', -config.radius / 2.5));
     root.appendChild(this._buildText(config.radius, 'high', config.radius / 3));
+    root.appendChild(this._buildHumidityText(config.radius));
     root.appendChild(this._buildChevrons(config.radius, 0, 'low', 0.7, -config.radius / 2.5));
     root.appendChild(this._buildChevrons(config.radius, 0, 'high', 0.7, config.radius / 3));
     root.appendChild(this._buildChevrons(config.radius, 0, 'target', 1, 0));
@@ -92,6 +93,7 @@ export default class ThermostatUI {
     this.max_value = options.max_value;
     this.hvac_state = options.hvac_state;
     this.hvac_action = options.hvac_action;
+    this.current_humidity = options.current_humidity;
     this.preset_mode = options.preset_mode;
     this.hvac_modes = options.hvac_modes;
     this._updateClass('action--heating', this.hvac_action === 'heating');
@@ -223,6 +225,7 @@ export default class ThermostatUI {
     this._updateTicks(from, to, tick_indexes, this.hvac_state, ambient_index);
     // this._updateColor(this.hvac_state, this.preset_mode);
     this._updateText('ambient', this.ambient);
+    this._updateHumidityText();
     this._updateEdit(false);
     this._updateDialog(this.hvac_modes, hass);
     this._updateDragHandlePositions();
@@ -566,6 +569,31 @@ export default class ThermostatUI {
       class: 'dial__lbl dial__lbl--ring',
       id: `temperature_slot_${index}`
     })
+  }
+
+  _buildHumidityText(radius) {
+    // Positioned vertically between the ambient temperature label (center
+    // of dial at y=radius) and the mode icon at climate_info top: 82%.
+    // The midpoint of that gap sits at roughly y = radius * 1.4.
+    const target = SvgUtil.createSVGElement('text', {
+      x: radius,
+      y: radius * 1.4,
+      class: 'dial__lbl dial__lbl--humidity',
+      id: 'humidity'
+    });
+    target.appendChild(SvgUtil.createSVGElement('tspan', {}));
+    return target;
+  }
+
+  _updateHumidityText() {
+    const el = this._root.querySelector('#humidity');
+    if (!el) return;
+    const tspan = el.querySelector('tspan');
+    if (this.current_humidity == null || this.current_humidity === '') {
+      tspan.textContent = '';
+    } else {
+      tspan.textContent = `${Math.round(this.current_humidity)}%`;
+    }
   }
 
   _buildText(radius, name, offset) {
